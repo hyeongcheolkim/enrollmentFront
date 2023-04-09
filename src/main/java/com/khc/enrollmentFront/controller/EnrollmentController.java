@@ -82,7 +82,6 @@ public class EnrollmentController {
                             .onStatus(HttpStatus::is4xxClientError, response ->
                                     response.bodyToMono(ApiExceptionDTO.class).flatMap(e -> Mono.error(new ApiException(e))))
                             .bodyToMono(NotSemesterEnrollmentPageableResponse.class)
-                            .doOnNext(e -> log.info("학점 : {}",e.getContent().get(0).getScoreType()))
                             .flatMap(notSemesterEnrollmentPageableResponse -> Mono.just(Rendering.view("/student/not-semester")
                                     .modelAttribute("NotSemesterEnrollmentPageableResponse", notSemesterEnrollmentPageableResponse)
                                     .build()));
