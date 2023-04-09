@@ -2,6 +2,7 @@ package com.khc.enrollmentFront.controller;
 
 import com.khc.enrollmentFront.controller.dto.LoginDTO;
 import com.khc.enrollmentFront.controller.dto.RegisterDTO;
+import com.khc.enrollmentFront.controller.dto.RegisterStudentDTO;
 import com.khc.enrollmentFront.controller.response.DepartmentListResponse;
 import com.khc.enrollmentFront.controller.response.LoginResponse;
 import com.khc.enrollmentFront.exception.ApiException;
@@ -113,13 +114,12 @@ public class LoginController {
     }
 
     @PostMapping("/register/student")
-    public Mono<Rendering> registerStudentPOST(@ModelAttribute Mono<RegisterDTO> registerDTOMono) {
-        return registerDTOMono.flatMap(registerDTO -> {
-            final String finalPath = extractPath(registerDTO.getType());
+    public Mono<Rendering> registerStudentPOST(@ModelAttribute Mono<RegisterStudentDTO> registerStudentDTOMono) {
+        return registerStudentDTOMono.flatMap(registerStudentDTO -> {
             return webClient.post()
-                    .uri(String.format("/student/register", finalPath))
+                    .uri("/student/register")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(registerDTO)
+                    .bodyValue(registerStudentDTO)
                     .retrieve()
                     .onStatus(HttpStatus::is4xxClientError, response ->
                             response.bodyToMono(ApiExceptionDTO.class).flatMap(e -> Mono.error(new ApiException(e))))

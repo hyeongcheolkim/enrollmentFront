@@ -16,4 +16,12 @@ public class ExceptionAdvice {
                 .modelAttribute("message", apiException.getMessage())
                 .build());
     }
+
+    @ExceptionHandler
+    public Mono<Rendering> exception(Exception exception) {
+        return Mono.just(Rendering.view("error/api")
+                .modelAttribute("exceptionName", exception.getClass().getSimpleName())
+                .modelAttribute("message", exception.getMessage())
+                .build());
+    }
 }
