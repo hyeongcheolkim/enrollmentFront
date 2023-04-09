@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+
+<div class="alert alert-danger" role="alert">
+    api 백엔드 서버에서 예외가 발생했습니다. 다음 예외 메세지를 확인하세요.
+</div>
+
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:text="${'exceptionType : ' + exceptionType}">exceptionType</li>
+        <li class="list-group-item" th:text="${'exceptionName : ' + exceptionName}">exceptionName</li>
+        <li class="list-group-item" th:text="${'message : ' + message}">message</li>
+    </ul>
+</div>
+
+<label for="btn-back">돌아가기 버튼을 눌러 작업을 계속할 수 있습니다</label>
+<a class="btn btn-primary" id="btn-back" href="javascript:history.back()" role="button">돌아가기</a>
+
+</body>
+</html>

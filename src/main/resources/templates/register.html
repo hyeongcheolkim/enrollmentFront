@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+</head>
+<body>
+
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh; overflow:hidden;">
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+            <h2>회원가입</h2>
+            <form th:action="@{/register}" method="post">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ID</label>
+                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="아이디를 입력하세요" name="loginId">
+                    <small id="emailHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="패스워드를 입력하세요"
+                           name="pw">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName">이름</label>
+                    <input class="form-control" id="exampleInputName" placeholder="이름을 입력하세요" name="name">
+                </div>
+                <div class="form-group">
+                    <label  for="inputGroupSelect01">유형</label>
+                    <select class="form-control" id="inputGroupSelect01" name="type">
+                        <option value="LOGIN_PROFESSOR">교수</option>
+                        <option value="LOGIN_ADMIN">어드민</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">가입</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

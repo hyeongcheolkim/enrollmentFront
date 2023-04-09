@@ -12,16 +12,21 @@ public class WebClientTest {
     @Autowired
     WebClient webClient;
 
+    static class A{
+        int x = 1;
+        int y = 2;
+    }
+
     @Test
     void webClientTest() {
-        webClient
-                .get()
-                .uri(uri -> uri.path("/api/student/login")
-                        .queryParam("loginId", "s")
-                        .queryParam("pw", "sa")
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .subscribe(System.out::println);
+        final A a = new A();
+        final Mono<A> stream = Mono.just(a);
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
+        stream.subscribe(e -> System.out.println(e.x));
     }
 }

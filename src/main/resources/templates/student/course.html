@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">수강신청시스템</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" th:href="@{/student/info}">개인정보</a>
+                    <a class="nav-link" th:href="@{/enroll/on-semester/student}">수강중코스</a>
+                    <a class="nav-link" th:href="@{/basket/list}">장바구니</a>
+                    <a class="nav-link" th:href="@{/course/student}">코스목록</a>
+                    <a class="nav-link" th:href="@{/enroll/not-semester/student}">수강완료코스</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a type="button" class="btn btn-danger" role="button" th:href="@{/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">과목명</th>
+            <th scope="col">과목코드</th>
+            <th scope="col">개설학부</th>
+            <th scope="col">교수명</th>
+            <th scope="col">정원</th>
+            <th scope="col">연도</th>
+            <th scope="col">학기</th>
+            <th scope="col">분반</th>
+            <th scope="col">수업요일</th>
+            <th scope="col">시작시간</th>
+            <th scope="col">종료시간</th>
+            <th scope="col">수강금지학과</th>
+            <th scope="col">장바구니</th>
+            <th scope="col">수강신청</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="courseResponse : ${CoursePageableResponse.content}">
+            <td th:text="${courseResponse.subjectName}"></td>
+            <td th:text="${courseResponse.subjectCode}"></td>
+            <td th:text="${courseResponse.departmentName}"></td>
+            <td th:text="${courseResponse.professorName}"></td>
+            <td th:text="${courseResponse.capacity}"></td>
+            <td th:text="${courseResponse.openYear}"></td>
+            <td th:text="${courseResponse.openSemester}"></td>
+            <td th:text="${courseResponse.division}"></td>
+            <td th:text="${courseResponse.courseTime.day}"></td>
+            <td th:text="${courseResponse.courseTime.startHour}"></td>
+            <td th:text="${courseResponse.courseTime.endHour}"></td>
+            <td>
+                <th:block th:each="prohibitDepartment : ${courseResponse.prohibitedDepartments}">
+                    <span th:text="${prohibitDepartment.departmentName} + ' '"></span>
+                </th:block>
+            </td>
+            <td>
+                <form th:action="@{/basket/put}" method="post">
+                    <input type="hidden" th:id="${'1basketPut' + courseResponseStat.index}" name="courseId"
+                           th:value="${courseResponse.courseId}">
+                    <input type="hidden" th:id="${'2basketPut' + courseResponseStat.index}" name="prevPage"
+                           th:value="${CoursePageableResponse.number}">
+                    <button type="submit" class="btn btn-outline-dark">담기</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/course/enroll}" method="post">
+                    <input type="hidden" th:id="${'1po2' + courseResponseStat.index}" name="courseId"
+                           th:value="${courseResponse.courseId}">
+                    <input type="hidden" th:id="${'2po2' + courseResponseStat.index}" name="prevPage"
+                           th:value="${CoursePageableResponse.number}">
+                    <button type="submit" class="btn btn-outline-info">신청</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination align-content-lg-center"
+            th:with="
+            start = ${T(java.lang.Math).floor(CoursePageableResponse.number/10) * 10},
+            end = ${CoursePageableResponse.totalPages - 1},
+            last = ${start + 9 <= end ? start + 9 : end}">
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/course/student(page=${start - 10 >= 0 ? start - 10 : 0})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="page : ${#numbers.sequence(start, last < 0 ? 0 : last)}">
+                <a class="page-link" th:href="@{/course/student(page=${page})}" th:text="${page+1}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/course/student(page=${start + 10 >= end ? end : start + 10})}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+</body>
+</html>

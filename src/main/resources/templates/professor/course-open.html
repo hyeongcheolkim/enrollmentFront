@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">수강신청시스템</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" th:href="@{/professor/info}">개인정보</a>
+                    <a class="nav-link" th:href="@{/course/open}">코스생성</a>
+                    <a class="nav-link" th:href="@{/course/professor}">수업중코스</a>
+                    <a class="nav-link" th:href="@{/enroll/on-semester/professor}">수강중학생</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a type="button" class="btn btn-danger" role="button" th:href="@{/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form th:action="@{/course/open}" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">정원</label>
+                <input class="form-control" id="exampleInputEmail1" placeholder="정원" name="capacity">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">개설년도</label>
+                <input class="form-control" id="exampleInputEmail2" placeholder="개설년도" name="openYear">
+            </div>
+
+            <div class="form-group">
+                <label for="inputGroupSelect001">과목</label>
+                <select class="form-control" id="inputGroupSelect001" name="subjectId">
+                    <th:block th:each="subject : ${subjectListResponse.subjects}">
+                        <option th:value="${subject.subjectId}"
+                                th:text="${subject.subjectName}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="inputGroupSelect002">과</label>
+                <select class="form-control" id="inputGroupSelect002" name="departmentId">
+                    <th:block th:each="department : ${departmentListResponse.departments}">
+                        <option th:value="${department.departmentId}"
+                                th:text="${department.departmentName}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="inputGroupSelect003">건물</label>
+                <select class="form-control" id="inputGroupSelect003" name="classroomId">
+                    <th:block th:each="classroom : ${classroomListResponse.classrooms}">
+                        <option th:value="${classroom.classroomId}"
+                                th:text="${classroom.classroomName}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">추천 이수 학년</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="studentYear">
+                    <option value="1">1학년</option>
+                    <option value="2">2학년</option>
+                    <option value="3">3학년</option>
+                    <option value="4">4학년</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">개설학기</label>
+                <select class="form-control" id="exampleFormControlSelect2" name="openSemester">
+                    <option value="1">1학기</option>
+                    <option value="2">2학기</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">분반</label>
+                <select class="form-control" id="exampleFormControlSelect3" name="division">
+                    <option value="1">1분반</option>
+                    <option value="2">2분반</option>
+                    <option value="3">3분반</option>
+                    <option value="4">4분반</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">개설요일</label>
+                <select class="form-control" id="exampleFormControlSelect4" name="courseTime.day">
+                    <option value="MON">월요일</option>
+                    <option value="WED">화요일</option>
+                    <option value="TUE">수요일</option>
+                    <option value="THU">목요일</option>
+                    <option value="FRI">금요일</option>
+                    <option value="SAT">토요일</option>
+                    <option value="SUN">일요일</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">시작시간</label>
+                <select class="form-control" id="exampleFormControlSelect5" name="courseTime.startHour">
+                    <th:block th:each="val : ${#numbers.sequence(0, 24)}">
+                        <option th:value="${val}" th:text="${val}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">종료시간</label>
+                <select class="form-control" id="exampleFormControlSelect6" name="courseTime.endHour">
+                    <th:block th:each="val : ${#numbers.sequence(0, 24)}">
+                        <option th:value="${val}" th:text="${val}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">생성</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">수강신청시스템</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" th:href="@{/student/info}">개인정보</a>
+                    <a class="nav-link" th:href="@{/enroll/on-semester/student}">수강중코스</a>
+                    <a class="nav-link" th:href="@{/basket/list}">장바구니</a>
+                    <a class="nav-link" th:href="@{/course/student}">코스목록</a>
+                    <a class="nav-link" th:href="@{/enroll/not-semester/student}">수강완료코스</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a type="button" class="btn btn-danger" role="button" th:href="@{/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        Featured
+    </div>
+    <ul class="list-group list-group-flush">
+        <label for="lgi1">이름</label>
+        <li class="list-group-item" id="lgi1" th:text="${session.get('LOGIN_STUDENT')?.name}">로그인하십시오</li>
+        <label for="lgi1">신분</label>
+        <li class="list-group-item" id="lgi2" th:text="${session.get('LOGIN_STUDENT')?.type}">로그인하십시오</li>
+        <label for="lgi1">학과</label>
+        <li class="list-group-item" id="lgi3" th:text="${session.get('LOGIN_STUDENT')?.departmentName}">로그인하십시오</li>
+    </ul>
+</div>
+
+</body>
+</html>

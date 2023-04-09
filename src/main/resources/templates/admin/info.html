@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">수강신청시스템</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" th:href="@{/admin/info}">대쉬보드</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a type="button" class="btn btn-danger" role="button" th:href="@{/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3>과목생성</h3>
+        <form th:action="@{/admin/subject/make}" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">과목이름</label>
+                <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="과목이름" name="name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">과목코드</label>
+                <input class="form-control" id="exampleInputPassword1" placeholder="과목코드" name="code">
+            </div>
+            <div class="form-group">
+                <label  for="inputGroupSelect02">학점</label>
+                <select class="form-control" id="inputGroupSelect02" name="credit">
+                    <option value="1">1학점</option>
+                    <option value="2">2학점</option>
+                    <option value="3">3학점</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label  for="inputGroupSelect03">유형</label>
+                <select class="form-control" id="inputGroupSelect03" name="type">
+                    <option value="MAJOR_CORE">전공필수</option>
+                    <option value="MAJOR_ELECTIVE">전공선택</option>
+                    <option value="GENERAL_ELECTIVE">교양필수</option>
+                    <option value="GENERAL_CORE">교양선택</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">과목생성</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3>과생성</h3>
+        <form th:action="@{/admin/department/create}" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">과이름</label>
+                <input class="form-control" id="exampleInputEmail3" aria-describedby="emailHelp" placeholder="과이름" name="name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">과코드</label>
+                <input class="form-control" id="exampleInputPassword3" placeholder="과코드" name="code">
+            </div>
+            <button type="submit" class="btn btn-primary">과생성</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3>교실생성</h3>
+        <form th:action="@{/admin/classroom/create}" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">교실이름</label>
+                <input class="form-control" id="exampleInputEmail4" aria-describedby="emailHelp" placeholder="교실이름" name="name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">교실코드</label>
+                <input class="form-control" id="exampleInputPassword4" placeholder="교실코드" name="code">
+            </div>
+            <button type="submit" class="btn btn-primary">교실생성</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
